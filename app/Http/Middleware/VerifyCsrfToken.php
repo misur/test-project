@@ -12,6 +12,18 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-        //
+        'sendemail'
     ];
+
+
+
+    //  protected function tokensMatch($request)
+    // {
+
+    // 	$token = $request->ajax() ? $request->header('X-CSRF-Token') : $request->input('_token');
+
+    // return $request->session()->token() == $token;
+
+       
+    // }
 }

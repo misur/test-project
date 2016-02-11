@@ -1,45 +1,41 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Laravel</title>
+ @extends('layout.master')
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
-        <style>
-            html, body {
-                height: 100%;
-            }
+ @section('title')
+  index
+@stop
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
 
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
+ @section('header')
+  <div class="container">
+      <div class="page-header">
+        <h1>Index</h1>
+      </div>
 
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
+@stop
 
-            .title {
-                font-size: 96px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Laravel 5</div>
-            </div>
-        </div>
-    </body>
-</html>
+ @section('content')
+   
+   @if (count($texts) > 0)  
+          <div class="alert alert-info">
+            
+            <ul>
+              @foreach ($texts as $text)
+              <li>{{ link_to('text/'.$text->id, $title = $text->text, $attributes = array(), $secure = null)}}</li>
+              @endforeach
+            </ul>
+          </div>
+          @endif
+
+        <hr>
+        {{ link_to('home/login', $title = 'log in', $attributes = array(), $secure = null)}} <br>
+        {{ link_to('users/create', $title = 'registration', $attributes = array(), $secure = null)}} <br>
+        {{ link_to('home/logout', $title = 'logout', $attributes = array(), $secure = null)}}
+
+       
+
+    </div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+{!! Html::script('js/registration.js')!!}
+
+@stop

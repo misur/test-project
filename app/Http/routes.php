@@ -1,31 +1,86 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Routes File
-|--------------------------------------------------------------------------
-|
-| Here is where you will register all of the routes in an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+use App\User;
+use App\Text;
+use Illuminate\Support\Facades\Mail;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| This route group applies the "web" middleware group to every route
-| it contains. The "web" middleware group is defined in your HTTP
-| kernel and includes session state, CSRF protection, and more.
-|
-*/
+
+
+
+
+
 
 Route::group(['middleware' => ['web']], function () {
-    //
+
+	 Route::auth();
+   
+    Route::resource('text','TextController');
+
+    Route::resource('users','UsersController');
+
+	Route::controller('home','HomeController');
+	
+	Route::get('/', function () {
+	$texts = Text::all();
+    return view('welcome')-> with('texts', $texts);
+	});
+
+	Route::get('/us', function () {
+		$user = Auth::user();
+	   	 return $user;
+	});
+
 });
+
+
+
+// Route::controller('/home','HomeController');
+
+
+
+
+// Route::get('sendemail', function () {
+
+//     $data = array(
+//         'name' => "Learning Laravel",
+//     );
+
+//     Mail::send('emails.welcome', $data, function ($message) {
+
+//         $message->from('misurovic.milos@gmail.com', 'Learning Laravel');
+
+//         $message->to('misurovic_milos@yahoo.com')->subject('Learning Laravel test email');
+
+//     });
+
+//     return "Your email has been sent successfully";
+
+// });
+
+
+
+
+
+
+
+
+
+
+
+// App::singleton('oauth2', function() {
+	
+// 	$storage = new OAuth2\Storage\Pdo(array('dsn' => 'mysql:dbname=comments_project;host=localhost', 'username' => 'root', 'password' => ''));
+// 	$server = new OAuth2\Server($storage);
+	
+// 	$server->addGrantType(new OAuth2\GrantType\ClientCredentials($storage));
+// 	$server->addGrantType(new OAuth2\GrantType\UserCredentials($storage));
+	
+// 	return $server;
+// });
+
+// Route::group(['middleware' => 'web'], function () {
+//     Route::auth();
+
+//     Route::get('/home', 'HomeController@index');
+// });
