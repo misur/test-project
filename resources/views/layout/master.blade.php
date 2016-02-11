@@ -40,7 +40,8 @@
     </div>
 
 
-    
+    {!!Html::script('js/bootstrap.min.js')!!}
+     {!!Html::script('js/bootstrap.js')!!}
 
 <script type="text/javascript">
 $.ajaxSetup({

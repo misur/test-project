@@ -9,7 +9,7 @@ class CreateUser extends Migration
     {
         Schema::create('users', function(Blueprint $table){
             $table->increments('id');
-            $table->string('username')->unique();
+            $table->string('username')->nullable;
             $table->string('password');
             $table->string('type');
             $table->string('email');

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Input;
 use App\User;
 use Illuminate\Support\Facades\Mail;
 use Hash;
+use Socialize;
 
 class HomeController extends Controller
 {
@@ -45,15 +46,16 @@ class HomeController extends Controller
             if($validator->fails()){
                 return Redirect::to('home/login')->withInput()->withErrors($validator->messages());
             }else{
-		$creds = ['email' => Input::get('email') ,
-				  'password' => Input::get('password') ];
+				$creds = ['email' => Input::get('email') ,
+						  'password' => Input::get('password') ];
 
-		if(Auth::attempt($creds)){
-            // Auth::attempt($creds);
-			return Redirect::intended('/');
-		}else{
-			return Redirect::to('home/login')->withInput()->withErrors('Bad username or password');
-		}}
+				if(Auth::attempt($creds)){
+		            // Auth::attempt($creds);
+					return Redirect::intended('/');
+				}else{
+					return Redirect::to('home/login')->withInput()->withErrors('Bad username or password');
+				}
+			}
 	}
 
 
@@ -129,4 +131,57 @@ class HomeController extends Controller
    
   
     }
+
+
+	public function getFacebook(){
+		
+	     return Socialize::with('facebook')->redirect();
+	
+	}
+
+	public function getCallback(){
+
+	    $user = Socialize::with('facebook')->user();
+
+	    if($this->checkExists($user->email)){
+			$this->updateUser($user->token, $user->email);
+		}else{
+			$this->addUser($user->token, $user->email);
+		}
+
+
+	    $creds = ['email'    => $user->email,
+	    		  'password' => $user->token
+	    		  ];
+
+	    if(Auth::attempt($creds)){
+			return Redirect::intended('/');
+		}else{
+			return 'not logged in';
+		}
+	}
+
+
+	public function checkExists($email){
+		$user = User::where('email', '=' ,$email )->first();
+		if($user === null){
+			return false;
+		}else{
+			return true;
+		}
+	}
+
+	public function addUser($password, $email){
+		User::create(array(
+            'password' => Hash::make($password),
+            'email' => $email,
+            'type' => 'user'
+        ));
+	}
+
+	public function updateUser($password,$email){
+		$user = User::where('email', '=' ,$email )->first();
+		$user->password = Hash::make($password);
+		$user->save();
+	}
 }

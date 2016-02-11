@@ -26,6 +26,7 @@
             </ul>
           </div>
           @endif
+         
 
         <hr>
         {{ link_to('home/login', $title = 'log in', $attributes = array(), $secure = null)}} <br>

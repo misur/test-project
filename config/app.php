@@ -159,6 +159,9 @@ return [
 
          Collective\Html\HtmlServiceProvider::class,
          Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+
+          Laravel\Socialite\SocialiteServiceProvider::class,
+
     ],
 
     /*
@@ -207,7 +210,7 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
       'Html' => Collective\Html\HtmlFacade::class,
-
+        'Socialize' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];
