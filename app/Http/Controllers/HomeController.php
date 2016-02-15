@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Validator;
-use Auth;
 use Redirect;
 use Illuminate\Support\Facades\Input;
 use App\User;
 use Illuminate\Support\Facades\Mail;
 use Hash;
 use Socialize;
-
 class HomeController extends Controller
 {
     

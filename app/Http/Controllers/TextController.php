@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Text;
 use App\Comment;
 use Redirect;
+use DB;
+
 class TextController extends Controller
 {
 
@@ -22,12 +24,23 @@ class TextController extends Controller
 		$text = Text::whereId($id)->first();
 		if(count($text) > 0){
 
-			$comments = Text::find($id)->comments;
+			$comments = $this->getComments($id);
 			return  view('text')->with('comments',$comments)->with('text', $text);
 		}else{
 			
 			  return Redirect::to('/');
         }
+    }
+
+
+    public function  getComments($id){
+    	$pom =DB::table('users')
+        ->leftJoin('comments', 'users.id', '=', 'comments.user_id')
+        ->where('comments.text_id', '=', $id)
+        ->where('comments.active', '=', 0)
+        ->get();
+
+        return $pom;
     }
 
 }

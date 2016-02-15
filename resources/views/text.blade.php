@@ -14,8 +14,27 @@
 @stop
 
 @section('content')
+          {{-- {!!Form::open(array('url' => Request::url().'/comments'))!!} --}}
+           <input type="hidden" name="text_id" value="{{$text->id}}">
   <h2> {{$text->text}}</h2>
     <hr>
+         @if (count($errors) > 0)  
+          <div class="alert alert-danger">
+            
+            <ul>
+              @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+          @endif
+
+          <div id="errors">
+            
+
+          </div>
+
+
         <div class="well" >
           <textarea class="form-control" name="text" id="text" rows="3" placeholder="Napisi vas komentar..."></textarea>
         </div>
@@ -23,18 +42,25 @@
           <div class="well ">
             <p>Dodaj: <a href="#">Putanja</a> | <a href="#">Video</a> | <a href="#">Fotografija</a></p>
          
-
-            <form class="form-inline">
+              {{-- 
+            <form class="form-inline" > --}}
+             @if(!Auth::check())
               <div class="form-group">
-                <input type="text" class="form-control" id="exampleInputName2" placeholder="Potpis">
+                <input type="text" class="form-control" id="potpis"  name="potpis" placeholder="Potpis">
                 
               </div>
+             
                <label>
                <p id="show-login">Ili prijavi se</p> 
               </label>
               <a href="#">FB</a> - <a href="#">L</a>
-              <button type="submit" class="btn btn-default">Posalji</button>
-            </form>
+              @endif
+              <button  class="btn btn-default send">Posalji</button>
+              {{-- </form> --}}
+              
+           {{-- {!!Form::close()!!} --}}
+
+
            </div>
         </div>
         <div id="login" class="well">
@@ -66,15 +92,57 @@
             </li>
           </ul>
         </div>
+
+<!-- Trigger the modal with a button -->
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Odgovor</h4>
+      </div>
+      <div class="modal-body">
+        <div id="modal_comments"></div>
+          <textarea class="form-control" name="text" id="modal_text" rows="3" placeholder="Napisi vas komentar..."></textarea>
+      </div>
+      <div class="modal-footer">
+      @if(!Auth::check())
+              <div class="form-group">
+                <input type="text" class="form-control" id="modal_potpis"  name="potpis" placeholder="Potpis">
+                
+              </div>
+             
+               <label>
+               <p id="show-login">Ili prijavi se</p> 
+              </label>
+              <a href="#">FB</a> - <a href="#">L</a>
+              @endif
+
+        <button type="button" class="btn btn-default modal_send" data-dismiss="modal">Posalji</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
     
     <hr>
-    @if (count($comments) > 0)  
+    @if (count($comments) > 0) 
+
+
       <div >        
         
           @foreach ($comments as $error)
-            {{ $error->text }}
-            <br>
-            {{ $error->created_at}} |  {{ $error->plus}} | Ocjena: <a href="#" ><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">    </span></a>   <a href="#" ><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>| <a href="">Odgovor</a>|<a href="">Prijavi</a>
+
+            <p class="text-danger">@if(!empty($error->username)) {{$error->username}}@else {{$error->email}} @endif</p>|{{ $error->text }} <br>
+            {{ $error->created_at}} | <p id="{{$error->id}}"> {{ $error->minus}} </p>| Ocjena: <button type="button" id="{{$error->id}}" class="btn btn-default up">{{$error->id}}</button>  <button type="button" id="{{$error->id}}" class="btn btn-default down">{{$error->id}}</button>| <button type="button" class="btn btn-default m_m" id="{{$error->id}}" data-toggle="modal" data-target="#myModal">Komentar</button>
+|<a href="">Prijavi</a>
                 
 
 

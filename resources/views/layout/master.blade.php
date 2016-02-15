@@ -31,16 +31,15 @@
    @yield('content')
      
 
-      
-
- @if(Auth::check()) logedd user:
+           @if(Auth::check())
+             logedd user:
              {!!Auth::user()->email!!}
            @endif 
 
     </div>
 
 
-    {!!Html::script('js/bootstrap.min.js')!!}
+    {{-- {!!Html::script('js/bootstrap.min.js')!!} --}}
      {!!Html::script('js/bootstrap.js')!!}
 
 <script type="text/javascript">
