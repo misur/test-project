@@ -76,7 +76,7 @@
             <li>
               <div class="radio">
                 <label>
-                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" >
                   Login <a href="#">Prijavi se</a>
                 </label>
               </div>
@@ -84,7 +84,7 @@
             <li>
               <div class="radio">
                 <label>
-                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" >
                   Facebook <a href="#">Prijavi se</a>
                 </label>
               </div>
@@ -120,6 +120,8 @@
                <p id="show-login">Ili prijavi se</p> 
               </label>
               <a href="#">FB</a> - <a href="#">L</a>
+              @else
+               <input type="hidden" id="modal_user_id" value="{!!Auth::user()->id!!}">
               @endif
 
         <button type="button" class="btn btn-default modal_send" data-dismiss="modal">Posalji</button>
@@ -133,10 +135,13 @@
 
     
     <hr>
+
+     <div id="comm">
+     <!--
     @if (count($comments) > 0) 
 
 
-      <div >        
+            
         
           @foreach ($comments as $error)
 
@@ -149,9 +154,9 @@
             <hr>
           @endforeach
         
-      </div>
-    @endif
-
+      
+    @endif-->
+</div>
 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

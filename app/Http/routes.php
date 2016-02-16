@@ -32,10 +32,10 @@ Route::group(['middleware' => ['web']], function () {
     return view('welcome')-> with('texts', $texts);
 	});
 
-	Route::get('/us', function () {
-		$user = Auth::user();
-	   	 return $user;
-	});
+
+	//test 
+
+	 Route::get('text/{text}/comments/all', 'CommentsController@all');
 
 });
 

@@ -27,15 +27,14 @@ class CommentsController extends Controller
        //  ->leftJoin('comments', 'users.id', '=', 'comments.user_id')
        //  ->get();
 
-       $pom = DB::table('users')
-        ->join('comments', function($join)
-        {
-            $join->on('users.id', '=', 'comments.user_id')
-                 ->where('comments.text_id', '=', 1);
-        })
-        ->get();
 
-        dd($pom);
+//         var text = '{"employees":[' +
+// '{"firstName":"John","lastName":"Doe" },' +
+// '{"firstName":"Anna","lastName":"Smith" },' +
+// '{"firstName":"Peter","lastName":"Jones" }]}';
+
+       $comments = $this->getComments(Input::get('id'));
+        return response()->json(array('success' => true ,'messages' => $comments));
     }
 
     /**
@@ -95,9 +94,15 @@ class CommentsController extends Controller
                     'user_id' => $logged,
                     'text_id' =>  $request->input('text_id'),
                 ));
-       // return Redirect::back();
-        return response()->json(array('success' => true));
+        $comments = $this->getComments($request->input('text_id'));
+        return response()->json(array('success' => true ,'messages' => $comments));
         }
+    }
+
+
+    public function all(){
+         $comments = $this->getComments(1);
+        return response()->json(array('success' => true ,'messages' => $comments));
     }
 
     /**
@@ -173,5 +178,16 @@ class CommentsController extends Controller
         $comments->minus = $comments->minus + 1;
         $comments->save();
         return $comments->minus;
+    }
+
+
+    public function  getComments($id){
+        $pom =DB::table('users')
+        ->leftJoin('comments', 'users.id', '=', 'comments.user_id')
+        ->where('comments.text_id', '=', $id)
+        ->where('comments.active', '=', 0)
+        ->get();
+
+        return $pom;
     }
 }
