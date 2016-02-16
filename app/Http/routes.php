@@ -22,6 +22,14 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('text/{text}/comments/plus', 'CommentsController@plus');
 
     Route::get('text/{text}/comments/minus', 'CommentsController@minus');
+    
+    Route::get('text/{text}/comments/all', 'CommentsController@all');
+
+    Route::get('text/{text}/comments/sortbyCreate', 'CommentsController@sortbyCreate');
+
+    Route::get('text/{text}/comments/sortbyPlus', 'CommentsController@sortbyPlus');
+
+    Route::get('text/{text}/comments/sortbyMinus', 'CommentsController@sortbyMinus');
 
     Route::resource('text.comments','CommentsController');
 

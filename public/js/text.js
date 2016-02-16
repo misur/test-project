@@ -41,54 +41,10 @@ $.ajax({ url: url+"/comments",
 	});
 
 
-
-	$('button.up').click(function(event){ 
-		alert('aa');
-			var pom = $(event.target);
-			var url =  window.location.pathname;
-			var id =  pom.get(0).id;
-				$.ajax({
-		     		 url: url+'/comments/plus',
-		     		 type: "get",
-		     		 data: {'id': id},
-		     		 success: function(data){
-		     		 
-		     		 	
-
-		      		   document.getElementById(pom.get(0).id).innerHTML =  data ;
-		     		 	
-		     		 }
-		    });      
-
-			
-		    
-		  }); 
-
-	$('button.down').click(function(event){ 
-			var pom = $(event.target);
-			var url =  window.location.pathname;
-			var id =  pom.get(0).id;
-				$.ajax({
-		     		 url: url+'/comments/minus',
-		     		 type: "get",
-		     		 data: {'id': id},
-		     		 success: function(data){
-		     		 
-		     		 	
-
-		      		   document.getElementById(pom.get(0).id).innerHTML =  data ;
-		     		 	
-		     		 }
-		    });      
-
-			
-		    
-		  }); 
-
 	$('button.send').click(function(){
 		var url =  window.location.pathname;
 		var text = $("#text").val();
-
+		var potpis = $("#potpis").val();
 		if(text.length >1 && text.length < 255){
 			$.ajax({
 		     		 url: url+'/comments',
@@ -98,9 +54,10 @@ $.ajax({ url: url+"/comments",
 		     		 
 		     		 	if(data.success ){
 		     		 		document.getElementById('text').value = null;
-		     		 		document.getElementById('potpis').value = null; 
-		     		 	 	
-		     		 		// var jsonData = JSON.parse(data.messages);
+		     		 		if(typeof potpis !== 'undefined'){
+		     		 			document.getElementById('potpis').value = ""; 
+		     		 		}
+		     		 		
 		     		 		 readComments(data);
 
 
@@ -130,6 +87,8 @@ $.ajax({ url: url+"/comments",
 	});
 
 	$('button.modal_send').click(function(){
+		alert('ok');
+		return false;
 		var id = $("#comments_id").val();
 		var text = $("#modal_text").val();
 
@@ -143,31 +102,12 @@ $.ajax({ url: url+"/comments",
 					if(potpis.length === 0){
 						alert('bad');
 					}else{
-						sendRK(potpis,user_id);
+						alert('bad');
 					}
 				}else{
-					asendRK(potpis,user_id);
+					alert('bad');
 				}
-				// alert('pot');
-			// }
-		// 	$.ajax({
-		//      		 url: url+'/comments',
-		//      		 type: "post",
-		//      		 data: {'text_id': $("input[name=text_id]").val(), 'potpis' : $("input[name=potpis]").val(), 'text' : $("#text").val() },
-		//      		 success: function(data){
-		     		 
-		//      		 	if(data.success ){
-		//      		 		document.getElementById('text').value = null;
-		//      		 		document.getElementById('potpis').value = null; 
-		     		 	 	
-		//      		 	}else{
-		//      		 		document.getElementById('errors').innerHTML = "<p class=\"alert alert-danger \">" + data.messages + "</p>"; 
-		//      		 	}
-
-		      		  
-		     		 	
-		//      		 }
-  //           });
+				
 		}
 
 		
@@ -185,9 +125,10 @@ $.ajax({ url: url+"/comments",
 				div.id = data.messages[i].id;
 				div.className = 'row';
 			    div.innerHTML ="<p class='text-danger'>"+data.messages[i].username + "</p>"+
-			    "|"+data.messages[i].text + " <br>"+data.messages[i].created_at + " | <p id='"+data.messages[i].id + "'> "+data.messages[i].minus + " </p>"+
-			    "| Ocjena: <button type='button' id='"+data.messages[i].id + "' class='btn btn-default up'>"+data.messages[i].id + "</button>"+
-			     " <button type='button' id='"+data.messages[i].id + "' class='btn btn-default down'>"+data.messages[i].id + "</button>| "+
+			    "|"+data.messages[i].text + " <br>"+data.messages[i].created_at + " |minus <p id='"+data.messages[i].id + "_minus'> "+data.messages[i].minus + " </p>"+
+			    " |plus <p id='"+data.messages[i].id + "_plus'> "+data.messages[i].plus + " </p>"+
+			    "| Ocjena: <button type='button' id='"+data.messages[i].id + "'onclick='up(this.id)' class='btn btn-default up'><span class='glyphicon glyphicon-plus-sign'></span> </button>"+
+			     " <button type='button' id='"+data.messages[i].id + "'onclick='down(id)' class='btn btn-default down'><span class='glyphicon glyphicon-minus-sign'></span></button>| "+
 			     " <button type='button' class='btn btn-default m_m' id='"+data.messages[i].id + "' data-toggle='modal' data-target='#myModal'>Komentar</button>"+
 				"|<a href=''>Prijavi</a>" +
             "<hr>";
@@ -198,7 +139,87 @@ $.ajax({ url: url+"/comments",
 
  	}
 
+ 	
+
  	function sendRK(potpis,user_id){
 			alert('ok 2 '+ potpis+' - ' + user_id);
+	}
+
+	function up(id){ 
+			var url =  window.location.pathname;
+		
+				$.ajax({
+		     		 url: url+'/comments/plus',
+		     		 type: "get",
+		     		 data: {'id': id},
+		     		 success: function(data){
+		     		 
+		     		 	
+
+		      		   document.getElementById(id+'_plus').innerHTML =  data ;
+		     		 	
+		     		 }
+		    }); 	    
+	}
+
+	function down(id){
+			var url =  window.location.pathname;
+				$.ajax({
+		     		 url: url+'/comments/minus',
+		     		 type: "get",
+		     		 data: {'id': id},
+		     		 success: function(data){
+		     		 
+		     		 	
+
+		      		   document.getElementById(id+'_minus').innerHTML =  data ;
+		     		 	
+		     		 }
+		    });      	    
+	}
+
+	function sortLatest(){
+		
+
+		var url =  window.location.pathname;
+		$.ajax({ url: url+"/comments/sortbyCreate",
+				type: "get",
+				data: {'id': $("input[name=text_id]").val()},
+		        success: function(data){
+		        	 
+					$( "#comm" ).empty();
+		           	readComments(data);
+		      	}
+		});
+	}
+
+	function sortPlus(){
+		
+
+		var url =  window.location.pathname;
+		$.ajax({ url: url+"/comments/sortbyPlus",
+				type: "get",
+				data: {'id': $("input[name=text_id]").val()},
+		        success: function(data){
+		        	 
+					$( "#comm" ).empty();
+		           	readComments(data);
+		      	}
+		});
+	}
+
+	function sortMinus(){
+		
+
+		var url =  window.location.pathname;
+		$.ajax({ url: url+"/comments/sortbyMinus",
+				type: "get",
+				data: {'id': $("input[name=text_id]").val()},
+		        success: function(data){
+		        	 
+					$( "#comm" ).empty();
+		           	readComments(data);
+		      	}
+		});
 	}
 

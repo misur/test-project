@@ -23,16 +23,7 @@ class CommentsController extends Controller
      */
     public function index()
     {
-       // $pom = DB::table('users')
-       //  ->leftJoin('comments', 'users.id', '=', 'comments.user_id')
-       //  ->get();
-
-
-//         var text = '{"employees":[' +
-// '{"firstName":"John","lastName":"Doe" },' +
-// '{"firstName":"Anna","lastName":"Smith" },' +
-// '{"firstName":"Peter","lastName":"Jones" }]}';
-
+       
        $comments = $this->getComments(Input::get('id'));
         return response()->json(array('success' => true ,'messages' => $comments));
     }
@@ -44,7 +35,8 @@ class CommentsController extends Controller
      */
     public function create()
     {
-        return 'create view';
+        
+        dd($this->getComment(35));
     }
 
     /**
@@ -89,20 +81,29 @@ class CommentsController extends Controller
             $logged = $user->id;
        }
 
-       Comment::create(array(
+       $pom =  Comment::create(array(
                     'text' => $request->input('text'),
                     'user_id' => $logged,
                     'text_id' =>  $request->input('text_id'),
                 ));
-        $comments = $this->getComments($request->input('text_id'));
+
+       $comments = $this->getComment($pom->id);
         return response()->json(array('success' => true ,'messages' => $comments));
         }
     }
 
 
     public function all(){
-         $comments = $this->getComments(1);
-        return response()->json(array('success' => true ,'messages' => $comments));
+        $pom =DB::table('users')
+        ->leftJoin('comments', 'users.id', '=', 'comments.user_id')
+        ->where('comments.active', '=', 0)
+        // ->where('comments.text_id', '=', 1)
+        ->orderBy('comments.created_at', 'asc')
+        ->get();
+
+         
+
+        return response()->json(array('success' => true ,'messages' => $pom));
     }
 
     /**
@@ -190,4 +191,59 @@ class CommentsController extends Controller
 
         return $pom;
     }
+
+    public function  getComment($id){
+        $pom =DB::table('users')
+        ->leftJoin('comments', 'users.id', '=', 'comments.user_id')
+        ->where('comments.active', '=', 0)
+        ->where('comments.id', '=', $id)
+        ->get();
+
+        return $pom;
+    }
+
+
+    public function sortbyCreate(Request $request){
+        $id = $request->input('id');
+        $pom =DB::table('users')
+        ->leftJoin('comments', 'users.id', '=', 'comments.user_id')
+        ->where('comments.active', '=', 0)
+        ->where('comments.text_id', '=', $id)
+        ->orderBy('comments.created_at', 'desc')
+        ->get();
+
+         
+
+        return response()->json(array('success' => true ,'messages' => $pom));
+    }
+
+    public function sortbyPlus(Request $request){
+        $id = $request->input('id');
+        $pom =DB::table('users')
+        ->leftJoin('comments', 'users.id', '=', 'comments.user_id')
+        ->where('comments.active', '=', 0)
+        ->where('comments.text_id', '=', $id)
+        ->orderBy('comments.plus', 'desc')
+        ->get();
+
+         
+
+        return response()->json(array('success' => true ,'messages' => $pom));
+    }
+
+
+    public function sortbyMinus(Request $request){
+        $id = $request->input('id');
+        $pom =DB::table('users')
+        ->leftJoin('comments', 'users.id', '=', 'comments.user_id')
+        ->where('comments.active', '=', 0)
+        ->where('comments.text_id', '=', $id)
+        ->orderBy('comments.minus', 'desc')
+        ->get();
+
+         
+
+        return response()->json(array('success' => true ,'messages' => $pom));
+    }
+
 }

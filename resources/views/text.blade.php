@@ -135,28 +135,14 @@
 
     
     <hr>
-
+    <div>
+    Komentari ({{count($comments)}}) 
+        <button onclick="sortPlus()">Popularno</button><button onclick="sortLatest()">Najnovije</button><button onclick="sortMinus()">Najlosije</button>
+        <hr>
+    </div>
      <div id="comm">
-     <!--
-    @if (count($comments) > 0) 
-
-
-            
-        
-          @foreach ($comments as $error)
-
-            <p class="text-danger">@if(!empty($error->username)) {{$error->username}}@else {{$error->email}} @endif</p>|{{ $error->text }} <br>
-            {{ $error->created_at}} | <p id="{{$error->id}}"> {{ $error->minus}} </p>| Ocjena: <button type="button" id="{{$error->id}}" class="btn btn-default up">{{$error->id}}</button>  <button type="button" id="{{$error->id}}" class="btn btn-default down">{{$error->id}}</button>| <button type="button" class="btn btn-default m_m" id="{{$error->id}}" data-toggle="modal" data-target="#myModal">Komentar</button>
-|<a href="">Prijavi</a>
-                
-
-
-            <hr>
-          @endforeach
-        
-      
-    @endif-->
-</div>
+    
+    </div>
 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
