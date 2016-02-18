@@ -31,6 +31,12 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('text/{text}/comments/sortbyMinus', 'CommentsController@sortbyMinus');
 
+    Route::post('text/{text}/comments/recomments', 'CommentsController@recomments');
+
+    Route::post('text/{text}/comments/errorComments', 'CommentsController@errorComments');
+
+     Route::get('text/{text}/comments/checkErrorComments', 'CommentsController@checkErrorComments');
+
     Route::resource('text.comments','CommentsController');
 
 	Route::controller('home','HomeController');

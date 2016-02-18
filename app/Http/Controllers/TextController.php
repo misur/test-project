@@ -17,7 +17,7 @@ class TextController extends Controller
 
 
 	public function index($id){
-		return $id;
+		return Redirect::to('/');
 	}
 
 	public function show($id){

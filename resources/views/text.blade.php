@@ -106,7 +106,8 @@
         <h4 class="modal-title">Odgovor</h4>
       </div>
       <div class="modal-body">
-        <div id="modal_comments"></div>
+      <div id="modal_comments"></div>
+      <div id="modal_errors"></div>
           <textarea class="form-control" name="text" id="modal_text" rows="3" placeholder="Napisi vas komentar..."></textarea>
       </div>
       <div class="modal-footer">
@@ -131,15 +132,72 @@
   </div>
 </div>
 
+<div id="reportModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Prijavi povredu pravila ovog servisa</h4>
+      </div>
+      <div class="modal-body">
+      <div id="modal_error_comments"></div>
+      <div id="modal_error_errors"></div>
+          <label>Povodom:</label><div id="modal_error_comments_text"></div>
+          <div class="form-group">
+       
+          <label>Razlog notifikacije:</label>
+          <select class="form-control" style="width:auto;" id="modal_error_select">
+            <option value="0" selected >Izaberi</option>
+            <option value="Drugi razlog">Drugi razlog</option>
+            <option value="Nepozeljan sadrzaj">Nepozeljan sadrzaj</option>
+            <option value="Sadrzi reklame">Sadrzi reklame</option>
+          </select>
+       
+          </div>
+          <br>
+          <textarea class="form-control" name="text" id="modal_error_text" rows="3" placeholder="Napisi vas komentar..."></textarea>
+      </div>
+      <div class="modal-footer">
+
+      @if(!Auth::check())
+              <div class="form-group">
+                <input type="text" class="form-control" id="modal_error_potpis"  name="potpis" placeholder="Potpis">
+                
+              </div>
+             
+               <label>
+               <p id="show-login">Ili prijavi se</p> 
+              </label>
+              <a href="#">FB</a> - <a href="#">L</a>
+              @else
+               <input type="hidden" id="modal_user_id" value="{!!Auth::user()->id!!}">
+              @endif
+        <button type="button" class="btn btn-default modal_cancle" data-dismiss="modal">Odustani</button>
+        <button type="button" class="btn btn-default modal_report" data-dismiss="modal">Posalji</button>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
 
 
     
     <hr>
-    <div>
-    Komentari ({{count($comments)}}) 
+    <div class="row">
+        <div class="col-md-6" id="count_comm"> Komentari ({{count($comments)}})</div> 
+        <div class="col-md-6">
         <button onclick="sortPlus()">Popularno</button><button onclick="sortLatest()">Najnovije</button><button onclick="sortMinus()">Najlosije</button>
-        <hr>
+        </div>
+        
     </div>
+    <hr>
      <div id="comm">
     
     </div>

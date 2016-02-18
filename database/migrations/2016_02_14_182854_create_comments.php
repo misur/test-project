@@ -17,8 +17,8 @@ class CreateComments extends Migration
             $table->increments('id');
              $table->text('text');
             $table->integer('recomments')->nullable();
-            $table->integer('plus')->nullable();
-            $table->integer('minus')->nullable();
+            $table->integer('plus')->default('0');
+            $table->integer('minus')->default('0');
             $table->integer('active')->default('0');
             $table->unsignedInteger('user_id');
            $table->unsignedInteger('text_id');

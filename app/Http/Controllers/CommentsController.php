@@ -12,7 +12,7 @@ use App\User;
 use Redirect;
 use Validator;
 use Illuminate\Support\Facades\Input;
-
+use App\ErrorComment;
 
 class CommentsController extends Controller
 {
@@ -55,7 +55,6 @@ class CommentsController extends Controller
         if(Auth::check()){
              $logged = Auth::user()->id;
         }else if(empty($request->input('potpis'))){
-            // return Redirect::back()->withInput()->withErrors('Potpisi se ili se prijavi!');
              return response()->json(array('success' => false, 'messages' => 'Potpisi se ili se prijavi'));
         }
             $rules =  array(
@@ -65,7 +64,6 @@ class CommentsController extends Controller
             $validator =Validator::make(Input::all(), $rules);
 
             if($validator->fails()){
-                 // return Redirect::back()->withErrors($validator->messages());
                  return response()->json(array('success' => false, 'messages' => 'Komentar mora biti velicine izmedju 1 i 255 karaktera'));
             }
        
@@ -89,6 +87,119 @@ class CommentsController extends Controller
 
        $comments = $this->getComment($pom->id);
         return response()->json(array('success' => true ,'messages' => $comments));
+        }
+    }
+
+
+    public function recomments(Request $request){
+        if($request->ajax()){           
+       
+
+        $logged = null;
+        if(Auth::check()){
+             $logged = Auth::user()->id;
+        }else if(empty($request->input('potpis'))){
+             return response()->json(array('success' => false, 'messages' => 'Potpisi se ili se prijavi'));
+        }
+            $rules =  array(
+                    'text' => 'required|max:255|min:1'
+                );
+
+            $validator =Validator::make(Input::all(), $rules);
+
+            if($validator->fails()){
+                 return response()->json(array('success' => false, 'messages' => 'Komentar mora biti velicine izmedju 1 i 255 karaktera'));
+            }
+       
+
+       if(empty($logged)){
+         $name = $request->input('potpis');
+            $user=  User::create(array(
+                  'username' => $name,
+                 'password' => 'password',
+                 'email' => 'email',
+                 'type' => 'user'
+                    ));
+            $logged = $user->id;
+       }
+
+       $pom =  Comment::create(array(
+                    'text' => $request->input('text'),
+                    'user_id' => $logged,
+                    'text_id' =>  $request->input('text_id'),
+                    'recomments' => $request->input('id'),
+                ));
+
+       $comments = $this->getComment($pom->id);
+        return response()->json(array('success' => true ,'messages' => $comments));
+        }
+    }
+
+    public function checkErrorComments(Request $request){
+        if($request->ajax()){
+            $commnet_id =(int) $request->input('comments_id');
+            $error = ErrorComment::where('comment_id','=', $commnet_id)->count();
+            if($error >=2){
+                return response()->json(array('success' => false ,'messages' => $error));
+            }else{
+                 return response()->json(array('success' => true ,'messages' => $error));
+            }
+        }
+    }
+
+    public  function errorComments(Request $request){
+
+        if($request->ajax()){
+            $text =$request->input('text');
+            $reason = $request->input('reason');
+            $comment_id =$request->input('comments_id');
+            $logged = null;
+          
+
+             
+        if(Auth::check()){
+             $logged = Auth::user()->id;
+        }else if(empty($request->input('potpis'))){
+             return response()->json(array('success' => false, 'messages' => 'Potpisi se ili se prijavi'));
+        }
+            $rules =  array(
+                    'text' => 'required|max:255|min:1'
+                );
+
+            $validator =Validator::make(Input::all(), $rules);
+
+            if($validator->fails()){
+                 return response()->json(array('success' => false, 'messages' => 'Komentar mora biti velicine izmedju 1 i 255 karaktera'));
+            }
+       
+
+       if(empty($logged)){
+         $name = $request->input('potpis');
+            $user=  User::create(array(
+                  'username' => $name,
+                 'password' => 'password',
+                 'email' => 'email',
+                 'type' => 'user'
+                    ));
+            $logged = $user->id;
+       }
+       $error = ErrorComment::where('user_id','=', 1)->where('comment_id','=', $request->input('comments_id'))->count();
+
+      if($error >=2){
+         return response()->json(array('success' => false ,'messages' => 'Ovaj komnetar je vec prijavljivan 2 puta!'));
+      }
+
+      $errorComment = ErrorComment::create(array(
+            'text' => $text,
+            'reason' => $reason,
+            'user_id' =>$logged,
+            'comment_id' => $comment_id,
+        ));
+
+
+            return   'text '. $text .' reason '.$reason.' logged id  '.$logged.' comment id '. $comment_id . ' '.$errorComment->id;
+            
+      //       return response()->json(array('success' => true ,'messages' => 'text ' + $text +' reason '+$reason+' logged id  '+$logged+' comment id '+ $comment_id));
         }
     }
 
