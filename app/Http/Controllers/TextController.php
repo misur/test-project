@@ -36,8 +36,8 @@ class TextController extends Controller
     public function  getComments($id){
     	$pom =DB::table('users')
         ->leftJoin('comments', 'users.id', '=', 'comments.user_id')
-        ->where('comments.text_id', '=', $id)
-        ->where('comments.active', '=', 0)
+        // ->where('comments.text_id', '=', $id)
+        ->where('comments.active', '=', 1)
         ->get();
 
         return $pom;

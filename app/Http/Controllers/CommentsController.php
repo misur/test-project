@@ -207,7 +207,7 @@ class CommentsController extends Controller
     public function all(){
         $pom =DB::table('users')
         ->leftJoin('comments', 'users.id', '=', 'comments.user_id')
-        ->where('comments.active', '=', 0)
+        ->where('comments.active', '=', 1)
         // ->where('comments.text_id', '=', 1)
         ->orderBy('comments.created_at', 'asc')
         ->get();
@@ -297,7 +297,7 @@ class CommentsController extends Controller
         $pom =DB::table('users')
         ->leftJoin('comments', 'users.id', '=', 'comments.user_id')
         ->where('comments.text_id', '=', $id)
-        ->where('comments.active', '=', 0)
+        ->where('comments.active', '=', 1)
         ->get();
 
         return $pom;
@@ -306,7 +306,7 @@ class CommentsController extends Controller
     public function  getComment($id){
         $pom =DB::table('users')
         ->leftJoin('comments', 'users.id', '=', 'comments.user_id')
-        ->where('comments.active', '=', 0)
+        ->where('comments.active', '=', 1)
         ->where('comments.id', '=', $id)
         ->get();
 
@@ -318,7 +318,7 @@ class CommentsController extends Controller
         $id = $request->input('id');
         $pom =DB::table('users')
         ->leftJoin('comments', 'users.id', '=', 'comments.user_id')
-        ->where('comments.active', '=', 0)
+        ->where('comments.active', '=', 1)
         ->where('comments.text_id', '=', $id)
         ->orderBy('comments.created_at', 'desc')
         ->get();
@@ -332,7 +332,7 @@ class CommentsController extends Controller
         $id = $request->input('id');
         $pom =DB::table('users')
         ->leftJoin('comments', 'users.id', '=', 'comments.user_id')
-        ->where('comments.active', '=', 0)
+        ->where('comments.active', '=', 1)
         ->where('comments.text_id', '=', $id)
         ->orderBy('comments.plus', 'desc')
         ->get();
@@ -347,7 +347,7 @@ class CommentsController extends Controller
         $id = $request->input('id');
         $pom =DB::table('users')
         ->leftJoin('comments', 'users.id', '=', 'comments.user_id')
-        ->where('comments.active', '=', 0)
+        ->where('comments.active', '=', 1)
         ->where('comments.text_id', '=', $id)
         ->orderBy('comments.minus', 'desc')
         ->get();

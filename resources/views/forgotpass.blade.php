@@ -52,7 +52,7 @@
 			
 
                 </td>
-                <td> <div id="email-div">Please insert email</div></td>
+                <td> <div id="email-div" class="alert alert-danger" role="alert">Please insert email</div></td>
               </tr>
 
               <tr>
@@ -88,47 +88,21 @@
 	        }
 	    });
 
-	document.getElementById('email-div').style.visibility = 'hidden';
+	document.getElementById('email-div').style.display = "none";
 
 	$( "#email" ).focus(function() {
-	    document.getElementById('email-div').style.visibility = 'visible';
+	    document.getElementById('email-div').style.display = "block";
 	    
 	   
 	});
 	
 	$(document).ready(function(){
-		// $('#getRequest').click(function(){
-		// 	$.get('test', function(data){
-		// 			var e = $('#email').val();
-		// 		 $('#getRequestData').append(e);
-				
-		// 	});
-		// });
+		
 		$('#email-div').click(function(){
-			document.getElementById('email-div').style.visibility = 'hidden';
+			document.getElementById('email-div').style.display = "none";
 		});
 
 
-		// $('.send-btn').click(function(){    
-		// 	var e = $('#email').val();
-
-		// 	if(e.length === 0){
-		// 		document.getElementById('email-div').style.visibility = 'visible';
-		// 	}else{
-		// 		$.ajax({
-		//      		 url: 'send',
-		//      		 type: "post",
-		//      		 data: {'email':$('input[name=email]').val(), '_token': $('input[name=_token]').val()},
-		//      		 success: function(data){
-		      		  
-
-		//         	// window.location.href = "http://localhost/test-project/public/login";
-		//      		 }
-		//     });      
-
-		// 	}
-		    
-		//   }); 
 
 		
 	});

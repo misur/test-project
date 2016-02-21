@@ -1,4 +1,4 @@
- @extends('layout.master')
+@extends('layout.master')
 
 
  @section('title')
@@ -39,7 +39,7 @@
               <tr>
                 <td><strong>Vaša email adresa:</strong></td>
                 <td><input type="text" name="email" id= "email" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">*</td>
-                <td> <div id= "email-div"><p class="bg-danger">Unesite postojecu email adressu..</p></div>
+                <td> <div id= "email-div" class="alert alert-danger">Unesite postojecu email adressu..</div>
 
 
                 </td>
@@ -49,13 +49,13 @@
               <tr>
                 <td><strong>Lozinka:</strong></td>
                 <td><input type="password" name="password" id="password">*</td>
-                <td> <div  id= "pass-div"><p class="bg-danger">Unesite password veci od 6 karaktera</p></div></td>
+                <td> <div  id= "pass-div" class="alert alert-danger">Unesite password veci od 6 karaktera</div></td>
               </tr>
 
               <tr>
                 <td><strong>Ponovite lozinku:</strong></td>
                 <td><input type="password" name="repassword" id="repassword">*</td>
-                <td> <div  id= "repass-div"><p class="bg-danger">Ponovi password</p></div></td>
+                <td> <div  id= "repass-div" class="alert alert-danger">Ponovi password</div></td>
               </tr>
               <tr>
                 <td><strong>Dokaz da  niste robot:</strong></td>

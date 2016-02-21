@@ -242,15 +242,26 @@ $.ajax({ url: url+"/comments",
 	
 				var div = document.createElement('div');
 				div.id = data.messages[i].id;
-				div.className = 'row';
-			    div.innerHTML ="<p class='text-danger'>"+data.messages[i].username + "</p>"+
-			    "|"+data.messages[i].text + " <br>"+data.messages[i].created_at + " |minus <p id='"+data.messages[i].id + "_minus'> "+data.messages[i].minus + " </p>"+
-			    " |plus <p id='"+data.messages[i].id + "_plus'> "+data.messages[i].plus + " </p>"+
-			    "| Ocjena: <button type='button' id='"+data.messages[i].id + "'onclick='up(this.id)' class='btn btn-default up'><span class='glyphicon glyphicon-plus-sign'></span> </button>"+
-			     " <button type='button' id='"+data.messages[i].id + "'onclick='down(id)' class='btn btn-default down'><span class='glyphicon glyphicon-minus-sign'></span></button>| "+
-			     " <button type='button' class='btn btn-default' onclick='sendID(id)' id='"+data.messages[i].id + "' data-toggle='modal' data-target='#myModal'>Komentar</button>"+
-				" <button type='button' class='btn btn-default' data-toggle='modal' data-target='#reportModal' onclick='reportError(id,\" "+ data.messages[i].text+" \")' id='"+data.messages[i].id + "'>Prijavi</button>"+
-            "<hr>";
+				div.className = '';
+				if(data.messages[i].username !== null){
+				    div.innerHTML ="<p><label class='text-danger' > ~"+data.messages[i].username + ":</label> "+data.messages[i].text
+				     + "</P> <br> <small>"+data.messages[i].created_at + " |minus <label id='"+data.messages[i].id + "_minus'> "+data.messages[i].minus + " </label>"+
+				    " |plus <label id='"+data.messages[i].id + "_plus'> "+data.messages[i].plus + " </label>"+
+				    "</small> <button type='button' id='"+data.messages[i].id + "'onclick='up(this.id)' class='up'><span class='glyphicon glyphicon-thumbs-up'></span> </button>"+
+				     " <button type='button' id='"+data.messages[i].id + "'onclick='down(id)' class='down'><span class='glyphicon glyphicon-thumbs-down'></span></button> "+
+				     " <button type='button'  onclick='sendID(id)' id='"+data.messages[i].id + "' data-toggle='modal' data-target='#myModal'>Komentar</button>"+
+					" <button type='button'  data-toggle='modal' data-target='#reportModal' onclick='reportError(id,\" "+ data.messages[i].text+" \")' id='"+data.messages[i].id + "'>Prijavi</button>"+
+	            	"<hr>";
+            	}else{
+            		 div.innerHTML ="<p><label class='text-danger' > ~"+data.messages[i].email + ":</label> "+data.messages[i].text
+				     + "</P> <br> <small>"+data.messages[i].created_at + " |minus <label id='"+data.messages[i].id + "_minus'> "+data.messages[i].minus + " </label>"+
+				    " |plus <label id='"+data.messages[i].id + "_plus'> "+data.messages[i].plus + " </label>"+
+				    "</small> <button type='button' id='"+data.messages[i].id + "'onclick='up(this.id)' class='up'><span class='glyphicon glyphicon-thumbs-up'></span> </button>"+
+				     " <button type='button' id='"+data.messages[i].id + "'onclick='down(id)' class='down'><span class='glyphicon glyphicon-thumbs-down'></span></button> "+
+				     " <button type='button'  onclick='sendID(id)' id='"+data.messages[i].id + "' data-toggle='modal' data-target='#myModal'>Komentar</button>"+
+					" <button type='button'  data-toggle='modal' data-target='#reportModal' onclick='reportError(id,\" "+ data.messages[i].text+" \")' id='"+data.messages[i].id + "'>Prijavi</button>"+
+	            	"<hr>";
+            	}
  	            document.getElementById('comm').appendChild(div);
 
 		}

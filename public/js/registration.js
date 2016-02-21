@@ -1,36 +1,36 @@
-	document.getElementById('email-div').style.visibility = 'hidden';
-	document.getElementById('pass-div').style.visibility = 'hidden';
-	document.getElementById('repass-div').style.visibility = 'hidden';
+	document.getElementById('email-div').style.display = "none";
+	document.getElementById('pass-div').style.display = "none";
+	document.getElementById('repass-div').style.display = "none";
 
 	$(document).ready(function(){
 
 	$( "#email" ).focus(function() {
-	    document.getElementById('email-div').style.visibility = 'visible';
-	    document.getElementById('pass-div').style.visibility = 'hidden';
-	    document.getElementById('repass-div').style.visibility = 'hidden';
+	    document.getElementById('email-div').style.display = 'block';
+	    document.getElementById('pass-div').style.display = "none";
+	    document.getElementById('repass-div').style.display = "none";
 	});
 
 	$( "#password" ).focus(function() {
-	    document.getElementById('email-div').style.visibility = 'hidden';
-	    document.getElementById('pass-div').style.visibility = 'visible';
-	    document.getElementById('repass-div').style.visibility = 'hidden';
+	    document.getElementById('email-div').style.display = "none";
+	    document.getElementById('pass-div').style.display = 'block';
+	    document.getElementById('repass-div').style.display = "none";
 	});
 
 	$( "#repassword" ).focus(function() {
-	    document.getElementById('email-div').style.visibility = 'hidden';
-	    document.getElementById('pass-div').style.visibility = 'hidden';
-	    document.getElementById('repass-div').style.visibility = 'visible';
+	    document.getElementById('email-div').style.display = "none";
+	    document.getElementById('pass-div').style.display = "none";
+	    document.getElementById('repass-div').style.display = 'block';
 	});
 
 	$('#email-div').click(function(){
-		document.getElementById('email-div').style.visibility = 'hidden';
+		document.getElementById('email-div').style.display = "none";
 	});
 
 	$('#pass-div').click(function(){
-		document.getElementById('pass-div').style.visibility = 'hidden';
+		document.getElementById('pass-div').style.display = "none";
 	});
 
 	$('#repass-div').click(function(){
-		document.getElementById('repass-div').style.visibility = 'hidden';
+		document.getElementById('repass-div').style.display = "none";
 	});
 });

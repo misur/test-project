@@ -12,6 +12,10 @@ use App\User;
 use Illuminate\Support\Facades\Mail;
 use Hash;
 use Socialize;
+use DB;
+use App\Comment;
+use App\ErrorComment;
+
 class HomeController extends Controller
 {
     
@@ -183,4 +187,67 @@ class HomeController extends Controller
 		$user->password = Hash::make($password);
 		$user->save();
 	}
+
+
+	 public function postAll(){
+        $pom =DB::table('users')
+        ->leftJoin('comments', 'users.id', '=', 'comments.user_id')
+        ->where('comments.active', '=', 1)
+        // ->where('comments.text_id', '=', 1)
+        ->orderBy('comments.created_at', 'asc')
+        ->get();
+
+         header("Content-Type: application/json");
+          echo  json_encode($pom);
+    }
+
+    public function getAll(){
+        $pom =DB::table('users')
+        ->leftJoin('comments', 'users.id', '=', 'comments.user_id')
+        ->where('comments.active', '=', 1)
+        ->first();
+        
+header("Content-Type: application/json");
+          echo  json_encode($pom);
+     	
+    }
+
+    public function getComments(){
+    	$comments =  Comment::all();
+    	return json_encode(array('value'=>$comments));
+    }
+
+    public function putComments(){
+    	$comments =  Comment::find(Input::get('id'));
+    	$comments->active = (int) Input::get('active');
+    	$comments->save();
+		header("Content-Type: application/json");
+    	echo json_encode($comments);
+    }
+
+    public function deleteComments(){
+    	$comments =  Comment::find(Input::get('id'));
+    	$comments->delete();
+    	return json_encode('ok');
+    }
+
+
+    public function getErrcomments(){
+    	$errcomments= ErrorComment::all();
+    	return json_encode(array('value'=>$errcomments));
+    }
+
+     public function putErrcomments(){
+    	$comments =  Comment::find(Input::get('id'));
+    	$comments->active = (int) Input::get('active');
+    	$comments->save();
+		header("Content-Type: application/json");
+    	echo json_encode($comments);
+    }
+
+    public function deleteErrcomments(){
+    	$comments =  Comment::find(Input::get('id'));
+    	$comments->delete();
+    	return json_encode('ok');
+    }
 }

@@ -53,7 +53,7 @@
                <label>
                <p id="show-login">Ili prijavi se</p> 
               </label>
-              <a href="#">FB</a> - <a href="#">L</a>
+              <a href="/test-project/public/home/facebook">FB</a> - <a href="#">L</a>
               @endif
               <button  class="btn btn-default send">Posalji</button>
               {{-- </form> --}}
@@ -77,7 +77,7 @@
               <div class="radio">
                 <label>
                   <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" >
-                  Login <a href="#">Prijavi se</a>
+                  Login <a href="/test-project/public/home/login">Prijavi se</a>
                 </label>
               </div>
             </li>
@@ -85,7 +85,7 @@
               <div class="radio">
                 <label>
                   <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" >
-                  Facebook <a href="#">Prijavi se</a>
+                  Facebook <a href="/test-project/public/home/facebook">Prijavi se</a>
                 </label>
               </div>
 
@@ -120,7 +120,7 @@
                <label>
                <p id="show-login">Ili prijavi se</p> 
               </label>
-              <a href="#">FB</a> - <a href="#">L</a>
+              <a href="/test-project/public/home/facebook">FB</a> - <a href="/test-project/public/home/login">L</a>
               @else
                <input type="hidden" id="modal_user_id" value="{!!Auth::user()->id!!}">
               @endif
@@ -170,7 +170,7 @@
                <label>
                <p id="show-login">Ili prijavi se</p> 
               </label>
-              <a href="#">FB</a> - <a href="#">L</a>
+              <a href="/test-project/public/home/facebook">FB</a> - <a href="/test-project/public/home/login">L</a>
               @else
                <input type="hidden" id="modal_user_id" value="{!!Auth::user()->id!!}">
               @endif
@@ -195,12 +195,16 @@
         <div class="col-md-6">
         <button onclick="sortPlus()">Popularno</button><button onclick="sortLatest()">Najnovije</button><button onclick="sortMinus()">Najlosije</button>
         </div>
+
+
         
     </div>
-    <hr>
-     <div id="comm">
+
+     <hr>
+     <div id="comm" >
     
     </div>
+   
 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

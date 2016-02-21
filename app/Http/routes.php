@@ -42,9 +42,21 @@ Route::group(['middleware' => ['web']], function () {
 	Route::controller('home','HomeController');
 	
 	Route::get('/', function () {
-	$texts = Text::all();
-    return view('welcome')-> with('texts', $texts);
+    	$texts = Text::all();
+        return view('welcome')-> with('texts', $texts);
 	});
+
+	Route::get('panel', function () {
+    	return view('adminpanel');
+	});
+
+    Route::get('panelerr', function () {
+        return view('panelerr');
+    });
+
+    // Route::get('kendo', function () {
+    //     return view('kendo');
+    // });
 
 
 	//test 
