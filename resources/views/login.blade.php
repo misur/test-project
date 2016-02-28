@@ -16,7 +16,7 @@
  @section('content')
   
 
-          <pre>Niste se registrovali? <a href="/test-project/public/users/create"><p class="text-danger">Registruj se.</p></a></pre>
+          <pre>Niste se registrovali? <a href="users/create"><p class="text-danger">Registruj se.</p></a></pre>
 
 
             @if (count($errors) > 0)  
@@ -30,7 +30,7 @@
           </div>
           @endif
           <form method="POST" action="login" >
-
+              {!! csrf_field() !!}
           
           <table class="table">
               <tr>
@@ -59,7 +59,7 @@
 
           </form>
 
-          <pre><a href="forgotpass"><p class="text-danger"> Zaboravio sam lozinku </p></a><br><a href="/test-project/public/users/create"><p class="text-danger"> Registruj se.</p></a></pre>
+          <pre><a href="forgotpass"><p class="text-danger"> Zaboravio sam lozinku </p></a><br><a href="users/create"><p class="text-danger"> Registruj se.</p></a></pre>
 
 
           

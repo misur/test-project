@@ -77,7 +77,7 @@
               <div class="radio">
                 <label>
                   <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" >
-                  Login <a href="/test-project/public/home/login">Prijavi se</a>
+                  Login <a href="/home/login">Prijavi se</a>
                 </label>
               </div>
             </li>
@@ -85,7 +85,7 @@
               <div class="radio">
                 <label>
                   <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" >
-                  Facebook <a href="/test-project/public/home/facebook">Prijavi se</a>
+                  Facebook <a href="/home/facebook">Prijavi se</a>
                 </label>
               </div>
 
@@ -120,7 +120,7 @@
                <label>
                <p id="show-login">Ili prijavi se</p> 
               </label>
-              <a href="/test-project/public/home/facebook">FB</a> - <a href="/test-project/public/home/login">L</a>
+              <a href="/home/facebook">FB</a> - <a href="/home/login">L</a>
               @else
                <input type="hidden" id="modal_user_id" value="{!!Auth::user()->id!!}">
               @endif
@@ -170,7 +170,7 @@
                <label>
                <p id="show-login">Ili prijavi se</p> 
               </label>
-              <a href="/test-project/public/home/facebook">FB</a> - <a href="/test-project/public/home/login">L</a>
+              <a href="/home/facebook">FB</a> - <a href="/home/login">L</a>
               @else
                <input type="hidden" id="modal_user_id" value="{!!Auth::user()->id!!}">
               @endif

@@ -65,7 +65,7 @@ Admin panel
                     var d = $.Deferred();
      
                     $.ajax({
-                         url: "http://localhost/test-project/public/home/comments",
+                         url: "home/comments",
                         dataType: "json"
                     }).done(function(response) {
                         d.resolve(response.value);
@@ -77,7 +77,7 @@ Admin panel
                   updateItem: function (item) {
                     return $.ajax({
                         type: "PUT",
-                        url: "http://localhost/test-project/public/home/comments",
+                        url: "home/comments",
                         data: item,
                         dataType: "json"
                     });
@@ -86,7 +86,7 @@ Admin panel
                     deleteItem: function(item) {
                         return $.ajax({
                             type: "DELETE",
-                            url: "http://localhost/test-project/public/home/comments",
+                            url: "home/comments",
                             data: item,
                             dataType: "json"
                         });

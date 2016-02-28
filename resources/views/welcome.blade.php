@@ -27,11 +27,12 @@
           </div>
           @endif
          
-
         <hr>
-        {{ link_to('home/login', $title = 'log in', $attributes = array(), $secure = null)}} <br>
-        {{ link_to('users/create', $title = 'registration', $attributes = array(), $secure = null)}} <br>
-        {{ link_to('home/logout', $title = 'logout', $attributes = array(), $secure = null)}}
+        {{ link_to('/home/login', $title = 'log in', $attributes = array( 'id' => 'login'), $secure = null)}} <br>
+        {{ link_to('/users/create', $title = 'registration', $attributes = array('id' => 'registration'), $secure = null)}} <br>
+        {{ link_to('/home/logout', $title = 'logout', $attributes = array('id' => 'logout'), $secure = null)}}
+        <br>
+         {{ link_to('/panel', $title = 'Admin panel', $attributes = array('id' => 'panel'), $secure = null)}}
 
        
 

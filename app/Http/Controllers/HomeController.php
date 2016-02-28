@@ -85,7 +85,7 @@ class HomeController extends Controller
 
 		        $message->from('misurovic.milos@gmail.com', 'Learning Laravel');
 
-		        $message->to('misurovic_milos@yahoo.com')->subject('Learning Laravel test email');
+		        $message->to(Input::get('email'))->subject('Learning Laravel test email');
 
 		    });
 
@@ -237,17 +237,16 @@ header("Content-Type: application/json");
     	return json_encode(array('value'=>$errcomments));
     }
 
-     public function putErrcomments(){
-    	$comments =  Comment::find(Input::get('id'));
-    	$comments->active = (int) Input::get('active');
-    	$comments->save();
-		header("Content-Type: application/json");
-    	echo json_encode($comments);
-    }
+    
 
     public function deleteErrcomments(){
     	$comments =  Comment::find(Input::get('id'));
     	$comments->delete();
     	return json_encode('ok');
+    }
+
+
+    public function getTest(){
+    	return 'test unit';
     }
 }

@@ -55,7 +55,7 @@ Admin panel
             paging: true,
             autoload: true,
             pageSize: 15,
-            editing: false,
+            // editing: false,
             // pageButtonCount: 5,
      
             // deleteConfirm: "Do you really want to delete comment?",
@@ -64,7 +64,7 @@ Admin panel
                     var d = $.Deferred();
      
                     $.ajax({
-                         url: "http://localhost/test-project/public/home/errcomments",
+                         url: "home/errcomments",
                         dataType: "json"
                     }).done(function(response) {
                         d.resolve(response.value);
@@ -103,7 +103,7 @@ Admin panel
                     { name: "created_at", type: "text" , title: 'Created',editing:false},
                     { name: "updated_at", type: "text", title: 'Updated',editing:false},
                      
-                    {type: "control"},
+                    // {type: "control"},
 
             ]
         });
